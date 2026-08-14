@@ -9,7 +9,13 @@
   <link rel="canonical" href="https://noki-games.github.io/1to10/">
   <link rel="icon" type="image/x-icon" href="./favicon.ico">
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
-  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="apple-touch-icon" href="./icon-180.png">
+
+  <link rel="manifest" href="./manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="1 TO 10">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="1 TO 10 — Fast-Paced Reflex Tap Game">
@@ -112,6 +118,13 @@
       async function init(){show($("startScreen"));if(typeof window.ytgame!=="undefined")try{window.ytgame.game.firstFrameReady()}catch(_){}register();await load();await detectLanguage();if(typeof window.ytgame!=="undefined")try{window.ytgame.game.gameReady()}catch(_){}}
       $("minusBtn").addEventListener("click",()=>setMax(state.max-1));$("plusBtn").addEventListener("click",()=>setMax(state.max+1));$("levelRange").addEventListener("input",e=>setMax(positionToLevel(+e.target.value),false));$("levelRange").addEventListener("change",save);$("levelRange").addEventListener("keydown",e=>{const d={ArrowLeft:-1,ArrowDown:-1,ArrowRight:1,ArrowUp:1}[e.key];if(d){e.preventDefault();setMax(state.max+d)}else if(e.key==="Home"){e.preventDefault();setMax(2)}else if(e.key==="End"){e.preventDefault();setMax(20)}});document.querySelectorAll(".sound-option").forEach(b=>b.addEventListener("click",()=>setTapSound(b.dataset.sound)));document.querySelectorAll(".countdown-option").forEach(b=>b.addEventListener("click",()=>setCountdownSound(b.dataset.countdown==="on")));document.querySelectorAll(".lang").forEach(b=>b.addEventListener("click",()=>setLanguage(b.dataset.lang)));$("startBtn").addEventListener("click",start);$("retryBtn").addEventListener("click",start);$("backBtn").addEventListener("click",goHome);$("settingsBtn").addEventListener("click",openSettings);$("closeSettings").addEventListener("click",closeSettings);$("settingsModal").addEventListener("click",e=>{if(e.target===$("settingsModal"))closeSettings()});$("recordsBtn").addEventListener("click",openRecords);$("closeRecords").addEventListener("click",closeRecords);$("recordsModal").addEventListener("click",e=>{if(e.target===$("recordsModal"))closeRecords()});$("rankBtn").addEventListener("click",openRank);$("closeRank").addEventListener("click",closeRank);$("rankModal").addEventListener("click",e=>{if(e.target===$("rankModal"))closeRank()});$("helpBtn").addEventListener("click",openHelp);$("closeHelp").addEventListener("click",closeHelp);$("helpModal").addEventListener("click",e=>{if(e.target===$("helpModal"))closeHelp()});document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeHelp();closeRecords();closeRank();closeSettings()}});window.addEventListener("beforeunload",save);requestAnimationFrame(init)
     })();
+  </script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(() => {});
+      });
+    }
   </script>
 </body>
 </html>
